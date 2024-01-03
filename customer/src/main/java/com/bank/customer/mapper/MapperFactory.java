@@ -9,11 +9,11 @@ import com.bank.customer.entity.OfficialIdEntity;
 
 public class MapperFactory {
 	public static GlobalMapper getMapper(Class<?> aClass) {
-		if(aClass.getSimpleName().equals(CustomerEntity.class) || aClass.getSimpleName().equals(CustomerDTO.class)) {
+		if(aClass.equals(CustomerEntity.class) || aClass.equals(CustomerDTO.class)) {
 			return new CustomerMapper();
-		} else if (aClass.getSimpleName().equals(AddressComponent.class) || aClass.getSimpleName().equals(AddressDTO.class)) {
+		} else if (aClass.equals(AddressComponent.class) || aClass.equals(AddressDTO.class)) {
 			return new AddressMapper();
-		} else if (aClass.getSimpleName().equals(OfficialIdEntity.class) || aClass.getSimpleName().equals(OfficialIdDTO.class)) {
+		} else if (aClass.equals(OfficialIdEntity.class) || aClass.equals(OfficialIdDTO.class)) {
 			return new OfficialIdMapper();
 		}
 		return null;
