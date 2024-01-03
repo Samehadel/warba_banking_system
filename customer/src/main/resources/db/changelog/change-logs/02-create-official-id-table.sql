@@ -1,0 +1,21 @@
+--liquibase formatted sql
+
+--changeset Sameh.Adel:create-official-id-table dbms:postgresql splitStatements:false failOnError:true
+
+
+CREATE TABLE OFFICIAL_ID (
+        CREATION_DATE DATE NOT NULL,
+        EXPIRY_DATE DATE,
+        UPDATE_DATE DATE,
+        CUSTOMER_ID BIGINT,
+        OFFICIAL_ID BIGINT NOT NULL,
+        TYPE VARCHAR(255),
+        VALUE VARCHAR(255),
+        PRIMARY KEY (OFFICIAL_ID)
+ );
+
+ALTER TABLE IF EXISTS OFFICIAL_ID ADD CONSTRAINT CUSTOMER_ID_FK
+       FOREIGN KEY (CUSTOMER_ID)
+       REFERENCES CUSTOMER;
+
+CREATE SEQUENCE OFFICIAL_ID_SEQ START WITH 1 INCREMENT BY 1;
