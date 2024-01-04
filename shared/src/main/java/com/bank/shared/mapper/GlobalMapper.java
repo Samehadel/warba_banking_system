@@ -1,4 +1,4 @@
-package com.bank.customer.mapper;
+package com.bank.shared.mapper;
 
 public interface GlobalMapper <E, D> {
 	E mapToEntity(D dto);

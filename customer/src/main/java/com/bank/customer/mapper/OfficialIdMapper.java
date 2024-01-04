@@ -2,6 +2,7 @@ package com.bank.customer.mapper;
 
 import com.bank.customer.dto.OfficialIdDTO;
 import com.bank.customer.entity.OfficialIdEntity;
+import com.bank.shared.mapper.GlobalMapper;
 
 public class OfficialIdMapper implements GlobalMapper<OfficialIdEntity, OfficialIdDTO> {
 	protected OfficialIdMapper() {

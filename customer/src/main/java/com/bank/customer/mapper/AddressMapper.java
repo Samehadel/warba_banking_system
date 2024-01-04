@@ -2,8 +2,9 @@ package com.bank.customer.mapper;
 
 import com.bank.customer.dto.AddressDTO;
 import com.bank.customer.entity.AddressComponent;
+import com.bank.shared.mapper.GlobalMapper;
 
-public class AddressMapper implements GlobalMapper <AddressComponent, AddressDTO>{
+public class AddressMapper implements GlobalMapper<AddressComponent, AddressDTO> {
 	protected AddressMapper() {
 	}
 	@Override

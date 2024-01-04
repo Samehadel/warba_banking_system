@@ -6,11 +6,12 @@ import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 @Data
 @MappedSuperclass
-public class BaseEntity {
+public class BaseEntity implements Serializable {
 
 	@CreationTimestamp
 	@Column(name = "CREATION_DATE", nullable = false)
