@@ -9,8 +9,6 @@ import com.bank.customer.entity.OfficialIdEntity;
 import com.bank.shared.mapper.GlobalMapper;
 
 public class CustomerMapper implements GlobalMapper<CustomerEntity, CustomerDTO> {
-	protected CustomerMapper() {
-	}
 
 	private final AddressMapper addressMapper = new AddressMapper();
 	private final OfficialIdMapper officialIdMapper = new OfficialIdMapper();

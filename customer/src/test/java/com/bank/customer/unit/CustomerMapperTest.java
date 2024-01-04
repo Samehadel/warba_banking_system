@@ -1,4 +1,5 @@
 package com.bank.customer.unit;
+
 import com.bank.customer.dto.AddressDTO;
 import com.bank.customer.dto.CustomerDTO;
 import com.bank.customer.dto.OfficialIdDTO;
@@ -6,33 +7,27 @@ import com.bank.customer.entity.AddressComponent;
 import com.bank.customer.entity.CustomerEntity;
 import com.bank.customer.entity.OfficialIdEntity;
 import com.bank.customer.enums.OfficialIdTypeEnum;
-import com.bank.customer.mapper.AddressMapper;
 import com.bank.customer.mapper.CustomerMapper;
-import com.bank.customer.mapper.MapperFactory;
-import com.bank.customer.mapper.OfficialIdMapper;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 public class CustomerMapperTest {
+	private final CustomerMapper customerMapper = new CustomerMapper();
 
 	@Test
 	public void testCustomerMapper() {
-		// Create mock DTO and Entity instances
 		CustomerDTO customerDTO = getCustomerDTO();
 
 		OfficialIdDTO officialIdDTO = getOfficialIdDTO();
 		customerDTO.addOfficialId(officialIdDTO);
 
-		CustomerMapper customerMapper = (CustomerMapper) MapperFactory.getMapper(CustomerDTO.class);
+
 		CustomerEntity customerEntity = customerMapper.mapToEntity(customerDTO);
 
 		assertCustomerDTOMatchEntity(customerDTO, customerEntity);

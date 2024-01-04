@@ -4,43 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9f707e1b-88eb-4fa3-91b3-56e59a080981" name="Changes" comment="Added Customer mapper unit test">
-      <change afterPath="$PROJECT_DIR$/.idea/git_toolbox_prj.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_dataformat_jackson_dataformat_yaml_2_15_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_woodstox_woodstox_core_6_2_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_github_classgraph_classgraph_4_8_149.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_swagger_core_v3_swagger_annotations_2_2_7.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_swagger_core_v3_swagger_core_2_2_7.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_swagger_core_v3_swagger_models_2_2_7.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_lang3_3_13_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springdoc_springdoc_openapi_common_1_6_14.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springdoc_springdoc_openapi_ui_1_6_14.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springdoc_springdoc_openapi_webmvc_core_1_6_14.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_starter_netflix_eureka_client_4_1_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_webjars_swagger_ui_4_15_5.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_webjars_webjars_locator_core_0_55.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/account/src/main/java/com/bank/account/handler/BankExceptionHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/account/src/main/resources/application-dev.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eureka/src/main/resources/application-dev.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shared/src/main/java/com/bank/shared/dto/AccountDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shared/src/main/java/com/bank/shared/enums/AccountStatusEnum.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shared/src/main/java/com/bank/shared/enums/AccountTypeEnum.java" afterDir="false" />
+    <list default="true" id="9f707e1b-88eb-4fa3-91b3-56e59a080981" name="Changes" comment="Added Eureka Server, &#10;Added AccountEntity and its DTO and mappers">
+      <change afterPath="$PROJECT_DIR$/account/src/main/java/com/bank/account/mapper/AccountMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/account/src/test/java/com/bank/unit/AccountMapperTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/Warba_Banking_System.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Warba_Banking_System.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/account/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/account/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/account/src/main/java/com/bank/account/AccountApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/account/src/main/java/com/bank/account/AccountApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/account/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/account/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/account/src/test/java/com/bank/account/AccountApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/account/src/main/java/com/bank/account/entity/AccountEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/account/src/main/java/com/bank/account/entity/AccountEntity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/customer/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/customer/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/customer/src/main/java/com/bank/customer/CustomerApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/customer/src/main/java/com/bank/customer/CustomerApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/customer/src/main/resources/application-dev.properties" beforeDir="false" afterPath="$PROJECT_DIR$/customer/src/main/resources/application-dev.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eureka/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/eureka/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eureka/src/main/java/com/bank/eureka/EurekaApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/eureka/src/main/java/com/bank/eureka/EurekaApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eureka/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/eureka/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eureka/src/test/java/com/bank/eureka/EurekaApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customer/src/main/java/com/bank/customer/mapper/CustomerMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/customer/src/main/java/com/bank/customer/mapper/CustomerMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/customer/src/main/java/com/bank/customer/mapper/MapperFactory.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customer/src/test/java/com/bank/customer/unit/CustomerMapperTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/customer/src/test/java/com/bank/customer/unit/CustomerMapperTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/shared/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/src/test/java/com/bank/shared/SharedApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/src/main/java/com/bank/shared/dto/AccountDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/com/bank/shared/dto/AccountDTO.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,9 +25,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Enum" />
         <option value="Interface" />
         <option value="Class" />
-        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -178,7 +153,7 @@
       <command value="mvn clean install" />
     </option>
   </component>
-  <component name="RunManager" selected="Application.AccountApplication">
+  <component name="RunManager" selected="JUnit.AccountMapperTest">
     <configuration name="AccountApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.bank.account.AccountApplication" />
       <module name="account" />
@@ -207,30 +182,48 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="EurekaApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.bank.eureka.EurekaApplication" />
-      <module name="eureka" />
+    <configuration name="AccountMapperTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="account" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.bank.eureka.*" />
+          <option name="PATTERN" value="com.bank.unit.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="PACKAGE_NAME" value="com.bank.unit" />
+      <option name="MAIN_CLASS_NAME" value="com.bank.unit.AccountMapperTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CustomerMapperTest.testCustomerMapper" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="customer" />
+    <configuration name="AccountMapperTest.testMapToDTO" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="account" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.bank.customer.unit.*" />
+          <option name="PATTERN" value="com.bank.unit.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.bank.customer.unit" />
-      <option name="MAIN_CLASS_NAME" value="com.bank.customer.unit.CustomerMapperTest" />
-      <option name="METHOD_NAME" value="testCustomerMapper" />
+      <option name="PACKAGE_NAME" value="com.bank.unit" />
+      <option name="MAIN_CLASS_NAME" value="com.bank.unit.AccountMapperTest" />
+      <option name="METHOD_NAME" value="testMapToDTO" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AccountMapperTest.testMapToEntity" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="account" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.bank.unit.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.bank.unit" />
+      <option name="MAIN_CLASS_NAME" value="com.bank.unit.AccountMapperTest" />
+      <option name="METHOD_NAME" value="testMapToEntity" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -238,10 +231,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.AccountMapperTest" />
+        <item itemvalue="JUnit.AccountMapperTest.testMapToDTO" />
+        <item itemvalue="JUnit.AccountMapperTest.testMapToEntity" />
         <item itemvalue="Application.AccountApplication" />
         <item itemvalue="Application.CustomerApplication" />
-        <item itemvalue="Application.EurekaApplication" />
-        <item itemvalue="JUnit.CustomerMapperTest.testCustomerMapper" />
       </list>
     </recent_temporary>
   </component>
@@ -261,7 +255,14 @@
       <option name="project" value="LOCAL" />
       <updated>1704325202239</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Added Eureka Server, &#10;Added AccountEntity and its DTO and mappers">
+      <created>1704385096238</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1704385096238</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -277,7 +278,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Added Customer mapper unit test" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added Customer mapper unit test" />
+    <MESSAGE value="Added Eureka Server, &#10;Added AccountEntity and its DTO and mappers" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Eureka Server, &#10;Added AccountEntity and its DTO and mappers" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -299,8 +301,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/customer/src/test/java/com/bank/customer/unit/CustomerMapperTest.java</url>
-          <line>37</line>
+          <line>32</line>
           <option name="timeStamp" value="14" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/account/src/test/java/com/bank/unit/AccountMapperTest.java</url>
+          <line>20</line>
+          <option name="timeStamp" value="16" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

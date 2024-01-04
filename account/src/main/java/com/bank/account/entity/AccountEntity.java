@@ -1,19 +1,25 @@
 package com.bank.account.entity;
 
 import com.bank.shared.entity.ActiveEntity;
-import com.bank.shared.entity.BaseEntity;
 import com.bank.shared.enums.AccountStatusEnum;
 import com.bank.shared.enums.AccountTypeEnum;
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.math.BigDecimal;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "ACCOUNT")
+@Builder
 public class AccountEntity extends ActiveEntity {
+
 	@Id
 	@GeneratedValue(generator = "ACCOUNT_ID_SEQ", strategy = GenerationType.SEQUENCE)
 	@SequenceGenerator(name = "ACCOUNT_ID_SEQ", sequenceName = "ACCOUNT_ID_SEQ", allocationSize = 1)
+	@Setter(AccessLevel.PRIVATE)
 	private Long id;
 
 	@Column(name = "ACCOUNT_NUMBER", nullable = false, unique = true)
