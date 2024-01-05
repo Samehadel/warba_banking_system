@@ -7,5 +7,6 @@ public class ErrorCodes {
 	public static final String UNAUTHORIZED_USER = "AUTH-ERROR-002";
 	public static final String SERVER_ERROR = "SERVER-ERROR-001";
 	public static final String MISSING_REQUIRED_FIELDS_ERROR = "VAL-ERROR-001";
-
+	public static final String DATA_UNIQUENESS_ERROR = "VAL-ERROR-002";
+	public static final String INVALID_DATA_ERROR = "VAL-ERROR-003";
 }

@@ -1,5 +1,7 @@
 package com.bank.customer.handler;
 
+import com.bank.shared.exceptions.DataUniquenessException;
+import com.bank.shared.exceptions.InvalidDataException;
 import com.bank.shared.exceptions.MissingRequiredFieldsException;
 import com.bank.shared.model.BankResponse;
 import com.bank.shared.model.ErrorCodes;
@@ -29,4 +31,17 @@ public class BankExceptionHandler {
 		return new ResponseEntity<>(failedResponse, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
+	@ExceptionHandler(DataUniquenessException.class)
+	public ResponseEntity<BankResponse> handleDataUniquenessException(HttpServletRequest request, DataUniquenessException e) {
+		log.error("Error occurred due to: {}", e.getMessage(), e);
+		BankResponse<Object> failedResponse = BankResponseUtil.getFailedResponse(ErrorCodes.DATA_UNIQUENESS_ERROR, e.getMessage());
+		return new ResponseEntity<>(failedResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
+	@ExceptionHandler(InvalidDataException.class)
+	public ResponseEntity<BankResponse> handleInvalidDataException(HttpServletRequest request, InvalidDataException e) {
+		log.error("Error occurred due to: {}", e.getMessage(), e);
+		BankResponse<Object> failedResponse = BankResponseUtil.getFailedResponse(ErrorCodes.INVALID_DATA_ERROR, e.getMessage());
+		return new ResponseEntity<>(failedResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+	}
 }

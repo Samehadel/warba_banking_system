@@ -14,6 +14,7 @@ import java.util.Set;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@EntityListeners(CustomerEntityListener.class)
 public class CustomerEntity extends ActiveEntity {
 
 	@Id
@@ -40,7 +41,7 @@ public class CustomerEntity extends ActiveEntity {
 	@Column(name = "ADDRESS")
 	private AddressComponent addressComponent;
 
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "CUSTOMER_ID")
 	private Set<OfficialIdEntity> officialIDs;
 

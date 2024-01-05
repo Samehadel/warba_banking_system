@@ -15,9 +15,9 @@ public abstract class BaseController<D extends BaseDTO, C extends BaseCriteriaFi
 		return getService().create(request);
 	}
 
-	@GetMapping("/get/{id}")
-	public BankResponse<D> get(@PathVariable("id") Long id) throws Exception {
-		return getService().get(id);
+	@GetMapping("/get/{code}")
+	public BankResponse<D> get(@PathVariable("code") String code) throws Exception {
+		return getService().get(code);
 	}
 
 	@PostMapping("/update")

@@ -1,14 +1,18 @@
 package com.bank.customer.dto;
 
 import com.bank.shared.dto.BaseDTO;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class CustomerDTO extends BaseDTO {
 
 	private String customerCode;
@@ -28,4 +32,13 @@ public class CustomerDTO extends BaseDTO {
 		officialIDs.add(officialIdDTO);
 	}
 
+	@Override
+	public String toString() {
+		return "CustomerDTO{" +
+				"firstName='" + firstName + '\'' +
+				", lastName='" + lastName + '\'' +
+				", email='" + email + '\'' +
+				", phoneNumber='" + phoneNumber + '\'' +
+				'}';
+	}
 }

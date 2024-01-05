@@ -1,6 +1,7 @@
 package com.bank.customer;
 
 import com.bank.customer.entity.CustomerEntity;
+import com.bank.customer.enums.OfficialIdTypeEnum;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -12,8 +13,14 @@ public interface CustomerRepository extends JpaRepository<CustomerEntity, Long> 
 	@Query("SELECT COUNT(c) FROM CustomerEntity c WHERE c.email = :email")
 	long countByEmail(@Param("email") String email);
 
-	@Query("SELECT COUNT(c) FROM CustomerEntity c WHERE c.mobileNumber = :mobileNumber")
-	long countByMobileNumber(@Param("mobileNumber") String mobileNumber);
+	@Query("SELECT COUNT(customer) FROM CustomerEntity customer WHERE customer.phoneNumber = :phoneNumber")
+	long countByPhoneNumber(@Param("phoneNumber") String phoneNumber);
 
+	@Query("SELECT COUNT(customer) FROM CustomerEntity customer " +
+			"JOIN OfficialIdEntity OFF_ID ON OFF_ID.customerEntity.customerId = customer.customerId " +
+			"WHERE OFF_ID.value = :value AND OFF_ID.type = :type ")
+	long countByOfficialId(@Param("value") String value, @Param("type") OfficialIdTypeEnum type);
 
+	@Query(value = "SELECT nextval('CUSTOMER_ID_SEQ')", nativeQuery = true)
+	Long getNextSequenceValue();
 }

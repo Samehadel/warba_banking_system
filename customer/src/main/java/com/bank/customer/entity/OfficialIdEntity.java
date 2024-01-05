@@ -4,7 +4,7 @@ import com.bank.customer.enums.OfficialIdTypeEnum;
 import com.bank.shared.entity.BaseEntity;
 import jakarta.persistence.*;
 
-import java.sql.Date;
+import java.util.Date;
 
 @Entity
 @Table(name = "OFFICIAL_ID")
@@ -22,8 +22,13 @@ public class OfficialIdEntity extends BaseEntity {
 	@Column(name = "VALUE")
 	private String value;
 
+	@Temporal(TemporalType.DATE)
 	@Column(name = "EXPIRY_DATE")
 	private Date expiryDate;
+
+	@ManyToOne
+	@JoinColumn(name = "CUSTOMER_ID")
+	private CustomerEntity customerEntity;
 
 	public OfficialIdTypeEnum getType() {
 		return type;
