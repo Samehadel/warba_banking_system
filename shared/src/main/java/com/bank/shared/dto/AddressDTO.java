@@ -1,4 +1,4 @@
-package com.bank.customer.dto;
+package com.bank.shared.dto;
 
 import com.bank.shared.dto.BaseDTO;
 import lombok.AllArgsConstructor;

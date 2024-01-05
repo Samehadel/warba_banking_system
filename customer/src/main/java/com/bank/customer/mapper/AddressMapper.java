@@ -1,6 +1,6 @@
 package com.bank.customer.mapper;
 
-import com.bank.customer.dto.AddressDTO;
+import com.bank.shared.dto.AddressDTO;
 import com.bank.customer.entity.AddressComponent;
 import com.bank.shared.mapper.GlobalMapper;
 

@@ -1,7 +1,7 @@
 package com.bank.customer;
 
 import com.bank.customer.entity.CustomerEntity;
-import com.bank.customer.enums.OfficialIdTypeEnum;
+import com.bank.shared.enums.OfficialIdTypeEnum;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

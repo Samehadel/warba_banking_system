@@ -1,5 +1,6 @@
 package com.bank.account.handler;
 
+import com.bank.shared.exceptions.IllegalOperationException;
 import com.bank.shared.exceptions.MissingRequiredFieldsException;
 import com.bank.shared.model.BankResponse;
 import com.bank.shared.model.ErrorCodes;
@@ -26,6 +27,13 @@ public class BankExceptionHandler {
 	public ResponseEntity<BankResponse> handleMissingRequiredFieldsException(HttpServletRequest request, MissingRequiredFieldsException e) {
 		log.error("Error occurred due to: {}", e.getMessage(), e);
 		BankResponse<Object> failedResponse = BankResponseUtil.getFailedResponse(ErrorCodes.MISSING_REQUIRED_FIELDS_ERROR, e.getMessage());
+		return new ResponseEntity<>(failedResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
+	@ExceptionHandler(IllegalOperationException.class)
+	public ResponseEntity<BankResponse> handleIllegalOperationException(HttpServletRequest request, IllegalOperationException e) {
+		log.error("Error occurred due to: {}", e.getMessage(), e);
+		BankResponse<Object> failedResponse = BankResponseUtil.getFailedResponse(ErrorCodes.ILLEGAL_OPERATION_ERROR, e.getMessage());
 		return new ResponseEntity<>(failedResponse, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 

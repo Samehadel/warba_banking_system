@@ -14,4 +14,5 @@ public class ErrorCodes {
 	public static final String INVALID_DATA_ERROR = "VAL-ERROR-003";
 
 	public static final String DATA_NOT_FOUND_ERROR = "DATA-ERROR-001";
+	public static final String ILLEGAL_OPERATION_ERROR = "DATA-ERROR-002";
 }

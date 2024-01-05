@@ -9,6 +9,7 @@ public class AccountMapper implements GlobalMapper <AccountEntity, AccountDTO> {
 	@Override
 	public AccountEntity mapToEntity(AccountDTO dto) {
 		AccountEntity entity = AccountEntity.builder()
+				.customerCode(dto.getCustomerCode())
 				.accountType(dto.getAccountType())
 				.accountHolderName(dto.getAccountHolderName())
 				.build();
@@ -19,6 +20,7 @@ public class AccountMapper implements GlobalMapper <AccountEntity, AccountDTO> {
 	@Override
 	public AccountDTO mapToDTO(AccountEntity entity) {
 		AccountDTO dto = AccountDTO.builder()
+				.customerCode(entity.getCustomerCode())
 				.accountNumber(entity.getAccountNumber())
 				.accountType(entity.getAccountType())
 				.accountStatus(entity.getAccountStatus())

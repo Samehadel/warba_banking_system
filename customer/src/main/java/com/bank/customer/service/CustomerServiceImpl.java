@@ -1,10 +1,10 @@
 package com.bank.customer.service;
 
 import com.bank.customer.CustomerRepository;
-import com.bank.customer.dto.CustomerDTO;
-import com.bank.customer.dto.OfficialIdDTO;
+import com.bank.shared.dto.CustomerDTO;
+import com.bank.shared.dto.OfficialIdDTO;
 import com.bank.customer.entity.CustomerEntity;
-import com.bank.customer.enums.OfficialIdTypeEnum;
+import com.bank.shared.enums.OfficialIdTypeEnum;
 import com.bank.customer.mapper.CustomerMapper;
 import com.bank.shared.exceptions.DataNotFoundException;
 import com.bank.shared.exceptions.DataUniquenessException;

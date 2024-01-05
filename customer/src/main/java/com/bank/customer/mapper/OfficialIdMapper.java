@@ -1,6 +1,6 @@
 package com.bank.customer.mapper;
 
-import com.bank.customer.dto.OfficialIdDTO;
+import com.bank.shared.dto.OfficialIdDTO;
 import com.bank.customer.entity.OfficialIdEntity;
 import com.bank.shared.mapper.GlobalMapper;
 

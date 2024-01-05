@@ -8,12 +8,12 @@ import lombok.*;
 
 import java.math.BigDecimal;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+
 @Entity
 @Table(name = "ACCOUNT")
 @Builder
+@AllArgsConstructor
+@EntityListeners(AccountEntityListener.class)
 public class AccountEntity extends ActiveEntity {
 
 	@Id
@@ -21,6 +21,9 @@ public class AccountEntity extends ActiveEntity {
 	@SequenceGenerator(name = "ACCOUNT_ID_SEQ", sequenceName = "ACCOUNT_ID_SEQ", allocationSize = 1)
 	@Setter(AccessLevel.PRIVATE)
 	private Long id;
+
+	@Column(name = "CUSTOMER_CODE", nullable = false)
+	private String customerCode;
 
 	@Column(name = "ACCOUNT_NUMBER", nullable = false, unique = true)
 	private String accountNumber;
@@ -46,4 +49,79 @@ public class AccountEntity extends ActiveEntity {
 	private BigDecimal monthlyLimit;
 
 
+	public AccountEntity() {
+
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getCustomerCode() {
+		return customerCode;
+	}
+
+	public void setCustomerCode(String customerCode) {
+		this.customerCode = customerCode;
+	}
+
+	public String getAccountNumber() {
+		return accountNumber;
+	}
+
+	public void setAccountNumber(String accountNumber) {
+		this.accountNumber = accountNumber;
+	}
+
+	public String getAccountHolderName() {
+		return accountHolderName;
+	}
+
+	public void setAccountHolderName(String accountHolderName) {
+		this.accountHolderName = accountHolderName;
+	}
+
+	public AccountTypeEnum getAccountType() {
+		return accountType;
+	}
+
+	public void setAccountType(AccountTypeEnum accountType) {
+		this.accountType = accountType;
+	}
+
+	public AccountStatusEnum getAccountStatus() {
+		return accountStatus;
+	}
+
+	public void setAccountStatus(AccountStatusEnum accountStatus) {
+		this.accountStatus = accountStatus;
+	}
+
+	public BigDecimal getBalance() {
+		return balance;
+	}
+
+	public void setBalance(BigDecimal balance) {
+		this.balance = balance;
+	}
+
+	public BigDecimal getDailyLimit() {
+		return dailyLimit;
+	}
+
+	public void setDailyLimit(BigDecimal dailyLimit) {
+		this.dailyLimit = dailyLimit;
+	}
+
+	public BigDecimal getMonthlyLimit() {
+		return monthlyLimit;
+	}
+
+	public void setMonthlyLimit(BigDecimal monthlyLimit) {
+		this.monthlyLimit = monthlyLimit;
+	}
 }

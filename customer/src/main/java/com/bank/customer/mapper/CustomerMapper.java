@@ -1,8 +1,8 @@
 package com.bank.customer.mapper;
 
-import com.bank.customer.dto.AddressDTO;
-import com.bank.customer.dto.CustomerDTO;
-import com.bank.customer.dto.OfficialIdDTO;
+import com.bank.shared.dto.AddressDTO;
+import com.bank.shared.dto.CustomerDTO;
+import com.bank.shared.dto.OfficialIdDTO;
 import com.bank.customer.entity.AddressComponent;
 import com.bank.customer.entity.CustomerEntity;
 import com.bank.customer.entity.OfficialIdEntity;

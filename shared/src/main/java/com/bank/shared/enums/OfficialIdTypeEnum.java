@@ -1,4 +1,4 @@
-package com.bank.customer.enums;
+package com.bank.shared.enums;
 
 public enum OfficialIdTypeEnum {
 	NATIONAL_ID, PASSPORT

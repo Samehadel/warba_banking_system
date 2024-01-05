@@ -1,22 +1,23 @@
-package com.bank.customer.controller;
+package com.bank.account.controller;
 
-import com.bank.shared.dto.CustomerDTO;
-import com.bank.customer.service.CustomerService;
+import com.bank.account.entity.AccountEntity;
+import com.bank.account.service.AccountService;
 import com.bank.shared.controller.BaseController;
+import com.bank.shared.dto.AccountDTO;
 import com.bank.shared.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/customer-service/api")
-public class CustomerController extends BaseController<CustomerDTO> {
+@RequestMapping("/account-service/api")
+public class AccountController extends BaseController<AccountDTO> {
 
 	@Autowired
-	private CustomerService customerService;
+	private AccountService accountService;
 
 	@Override
 	protected BaseService getService() {
-		return customerService;
+		return accountService;
 	}
 }

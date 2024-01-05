@@ -1,6 +1,6 @@
 package com.bank.customer.entity;
 
-import com.bank.customer.enums.OfficialIdTypeEnum;
+import com.bank.shared.enums.OfficialIdTypeEnum;
 import com.bank.shared.entity.BaseEntity;
 import jakarta.persistence.*;
 

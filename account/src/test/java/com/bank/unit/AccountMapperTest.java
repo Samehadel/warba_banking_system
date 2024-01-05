@@ -27,6 +27,7 @@ class AccountMapperTest implements MapperTest {
 	private AccountDTO getAccountDTO() {
 		return AccountDTO.builder()
 				.accountType(AccountTypeEnum.CERTIFICATE_OF_DEPOSIT)
+				.customerCode("123456789")
 				.accountHolderName("John Doe")
 				.accountStatus(AccountStatusEnum.ACTIVE)
 				.monthlyLimit(BigDecimal.TEN)
@@ -39,6 +40,7 @@ class AccountMapperTest implements MapperTest {
 		assertEquals(accountDTO.getAccountType(), mappedEntity.getAccountType());
 		assertEquals(accountDTO.getAccountHolderName(), mappedEntity.getAccountHolderName());
 
+		assertEquals(accountDTO.getCustomerCode(), mappedEntity.getCustomerCode());
 		assertNull(mappedEntity.getId());
 		assertNull(mappedEntity.getAccountNumber());
 		assertNull(mappedEntity.getAccountStatus());
@@ -61,6 +63,7 @@ class AccountMapperTest implements MapperTest {
 	private AccountEntity getAccountEntity() {
 		AccountEntity accountEntity = AccountEntity.builder()
 				.id(15L)
+				.customerCode("CUST-022")
 				.accountHolderName("John Smith")
 				.accountNumber("01444002251003")
 				.accountType(AccountTypeEnum.MONEY_MARKET)
@@ -74,6 +77,7 @@ class AccountMapperTest implements MapperTest {
 	}
 
 	private void assertEntityMatchDTO(AccountEntity accountEntity, AccountDTO mappedDTO) {
+		assertEquals(accountEntity.getCustomerCode(), mappedDTO.getCustomerCode());
 		assertEquals(accountEntity.getAccountNumber(), mappedDTO.getAccountNumber());
 		assertEquals(accountEntity.getAccountType(), mappedDTO.getAccountType());
 		assertEquals(accountEntity.getAccountStatus(), mappedDTO.getAccountStatus());

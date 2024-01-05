@@ -1,7 +1,7 @@
-package com.bank.customer.dto;
+package com.bank.shared.dto;
 
-import com.bank.customer.enums.OfficialIdTypeEnum;
-import com.bank.shared.dto.BaseDTO;
+
+import com.bank.shared.enums.OfficialIdTypeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

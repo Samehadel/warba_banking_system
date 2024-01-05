@@ -2,13 +2,12 @@ package com.bank.shared.controller;
 
 import com.bank.shared.dto.BaseDTO;
 import com.bank.shared.model.BankResponse;
-import com.bank.shared.model.BaseCriteriaFilter;
 import com.bank.shared.service.BaseService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-public abstract class BaseController<D extends BaseDTO, C extends BaseCriteriaFilter> {
-	protected abstract BaseService<D, C> getService();
+public abstract class BaseController<D extends BaseDTO> {
+	protected abstract BaseService<D> getService();
 
 	@PostMapping("/create")
 	public BankResponse<D> create(@RequestBody D request) {
