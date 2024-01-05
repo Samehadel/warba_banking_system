@@ -6,6 +6,7 @@ import com.bank.customer.dto.OfficialIdDTO;
 import com.bank.customer.entity.CustomerEntity;
 import com.bank.customer.enums.OfficialIdTypeEnum;
 import com.bank.customer.mapper.CustomerMapper;
+import com.bank.shared.exceptions.DataNotFoundException;
 import com.bank.shared.exceptions.DataUniquenessException;
 import com.bank.shared.exceptions.InvalidDataException;
 import com.bank.shared.exceptions.MissingRequiredFieldsException;
@@ -32,7 +33,7 @@ public class CustomerServiceImpl implements CustomerService {
 
 
 	@Override
-	public BankResponse<CustomerDTO> create(CustomerDTO dto) throws Exception {
+	public BankResponse<CustomerDTO> create(CustomerDTO dto) {
 		try {
 			log.info("Starting Creating customer {}", dto);
 			doValidateBeforeSave(dto);
@@ -125,18 +126,47 @@ public class CustomerServiceImpl implements CustomerService {
 		}
 	}
 
+
 	@Override
-	public BankResponse<CustomerDTO> update(CustomerDTO dto) throws Exception {
-		throw new Exception("Update Customer not implemented yet");
+	public BankResponse get(String code) {
+		try {
+			log.info("Starting get customer by code {}", code);
+			if(StringUtil.isNullOrEmpty(code)) {
+				throw new MissingRequiredFieldsException("Customer code is required");
+			}
+
+			CustomerEntity customerEntity = findCustomerByCustomerCode(code);
+			CustomerDTO customerDTO = customerMapper.mapToDTO(customerEntity);
+			return BankResponseUtil.getSuccessResponse(customerDTO);
+		} finally {
+			log.info("Finished get customer by code {}", code);
+		}
 	}
 
 	@Override
-	public BankResponse get(String code) throws Exception {
-		throw new Exception("Get Customer not implemented yet");
+	public BankResponse<Void> block(String code) {
+		try {
+			log.info("Starting block customer by code {}", code);
+			if(StringUtil.isNullOrEmpty(code)) {
+				throw new MissingRequiredFieldsException("Customer code is required");
+			}
+
+			CustomerEntity customerEntity = findCustomerByCustomerCode(code);
+
+			customerEntity.setBlocked(Boolean.TRUE);
+			customerEntity.setActive(Boolean.FALSE);
+
+			customerRepository.save(customerEntity);
+			return BankResponseUtil.getSuccessResponse();
+		} finally {
+			log.info("Finished block customer by code {}", code);
+		}
 	}
 
-	@Override
-	public BankResponse<Void> delete(Long id) throws Exception {
-		throw new Exception("Delete Customer not implemented yet");
+	private CustomerEntity findCustomerByCustomerCode(String code) {
+		CustomerEntity customerEntity = customerRepository
+				.findByCustomerCode(code)
+				.orElseThrow(() -> new DataNotFoundException("Customer not found with code " + code));
+		return customerEntity;
 	}
 }

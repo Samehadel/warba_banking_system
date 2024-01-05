@@ -5,6 +5,7 @@ import com.bank.shared.entity.BaseEntity;
 import jakarta.persistence.*;
 
 import java.util.Date;
+import java.util.Objects;
 
 @Entity
 @Table(name = "OFFICIAL_ID")
@@ -52,5 +53,19 @@ public class OfficialIdEntity extends BaseEntity {
 
 	public void setExpiryDate(Date expiryDate) {
 		this.expiryDate = expiryDate;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		if (!super.equals(o)) return false;
+		OfficialIdEntity that = (OfficialIdEntity) o;
+		return type == that.type && value.equals(that.value);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(super.hashCode(), type, value);
 	}
 }

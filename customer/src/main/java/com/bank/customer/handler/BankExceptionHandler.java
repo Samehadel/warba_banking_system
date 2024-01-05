@@ -1,5 +1,6 @@
 package com.bank.customer.handler;
 
+import com.bank.shared.exceptions.DataNotFoundException;
 import com.bank.shared.exceptions.DataUniquenessException;
 import com.bank.shared.exceptions.InvalidDataException;
 import com.bank.shared.exceptions.MissingRequiredFieldsException;
@@ -42,6 +43,13 @@ public class BankExceptionHandler {
 	public ResponseEntity<BankResponse> handleInvalidDataException(HttpServletRequest request, InvalidDataException e) {
 		log.error("Error occurred due to: {}", e.getMessage(), e);
 		BankResponse<Object> failedResponse = BankResponseUtil.getFailedResponse(ErrorCodes.INVALID_DATA_ERROR, e.getMessage());
+		return new ResponseEntity<>(failedResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
+	@ExceptionHandler(DataNotFoundException.class)
+	public ResponseEntity<BankResponse> handleDataNotFoundException(HttpServletRequest request, DataNotFoundException e) {
+		log.error("Error occurred due to: {}", e.getMessage(), e);
+		BankResponse<Object> failedResponse = BankResponseUtil.getFailedResponse(ErrorCodes.DATA_NOT_FOUND_ERROR, e.getMessage());
 		return new ResponseEntity<>(failedResponse, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 }

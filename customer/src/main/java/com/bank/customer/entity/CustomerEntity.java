@@ -4,9 +4,11 @@ import com.bank.shared.entity.ActiveEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -44,6 +46,14 @@ public class CustomerEntity extends ActiveEntity {
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "CUSTOMER_ID")
 	private Set<OfficialIdEntity> officialIDs;
+
+	public Long getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(Long customerId) {
+		this.customerId = customerId;
+	}
 
 	public String getCustomerCode() {
 		return customerCode;
@@ -93,6 +103,14 @@ public class CustomerEntity extends ActiveEntity {
 		this.addressComponent = addressComponent;
 	}
 
+	public Set<OfficialIdEntity> getOfficialIDs() {
+		return officialIDs;
+	}
+
+	public void setOfficialIDs(Set<OfficialIdEntity> officialIDs) {
+		this.officialIDs = officialIDs;
+	}
+
 	public void addOfficialId(OfficialIdEntity officialId) {
 		if(officialIDs == null) {
 			officialIDs = new HashSet<>();
@@ -100,7 +118,17 @@ public class CustomerEntity extends ActiveEntity {
 		officialIDs.add(officialId);
 	}
 
-	public Set<OfficialIdEntity> getOfficialIDs() {
-		return officialIDs;
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		if (!super.equals(o)) return false;
+		CustomerEntity that = (CustomerEntity) o;
+		return Objects.equals(customerId, that.customerId) && Objects.equals(customerCode, that.customerCode);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(super.hashCode(), customerId, customerCode);
 	}
 }

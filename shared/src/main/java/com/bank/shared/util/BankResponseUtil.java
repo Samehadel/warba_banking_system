@@ -4,6 +4,11 @@ import com.bank.shared.model.BankResponse;
 import com.bank.shared.model.StatusEnum;
 
 public class BankResponseUtil {
+
+	public static BankResponse getSuccessResponse() {
+		return buildBankResponse(StatusEnum.SUCCESS, null, null, null);
+	}
+
 	public static BankResponse getSuccessResponse(Object data) {
 		return buildBankResponse(StatusEnum.SUCCESS, null, null, data);
 	}

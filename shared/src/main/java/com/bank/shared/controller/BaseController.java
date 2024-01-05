@@ -11,23 +11,18 @@ public abstract class BaseController<D extends BaseDTO, C extends BaseCriteriaFi
 	protected abstract BaseService<D, C> getService();
 
 	@PostMapping("/create")
-	public BankResponse<D> create(@RequestBody D request) throws Exception {
+	public BankResponse<D> create(@RequestBody D request) {
 		return getService().create(request);
 	}
 
 	@GetMapping("/get/{code}")
-	public BankResponse<D> get(@PathVariable("code") String code) throws Exception {
+	public BankResponse<D> get(@PathVariable("code") String code) {
 		return getService().get(code);
 	}
 
-	@PostMapping("/update")
-	public BankResponse<D> update(@RequestBody D request) throws Exception{
-		return getService().update(request);
-	}
-
-	@PostMapping("/delete/{id}")
-	public BankResponse<Void> delete(@PathVariable("id") Long id) throws Exception {
-		return getService().delete(id);
+	@PutMapping("/block/{code}")
+	public BankResponse<Void> block(@PathVariable("code") String code) {
+		return getService().block(code);
 	}
 
 }
