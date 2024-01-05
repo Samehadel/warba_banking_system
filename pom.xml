@@ -15,6 +15,7 @@
         <module>shared</module>
         <module>eureka</module>
         <module>security</module>
+        <module>api-gateway</module>
     </modules>
 
     <properties>
@@ -58,8 +59,8 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
     </dependencies>
     <build>

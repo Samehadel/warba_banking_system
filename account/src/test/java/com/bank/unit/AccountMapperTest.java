@@ -5,6 +5,7 @@ import com.bank.account.mapper.AccountMapper;
 import com.bank.shared.dto.AccountDTO;
 import com.bank.shared.enums.AccountStatusEnum;
 import com.bank.shared.enums.AccountTypeEnum;
+import com.bank.shared.mapper.MapperTest;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -12,11 +13,12 @@ import java.math.BigDecimal;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-class AccountMapperTest {
+class AccountMapperTest implements MapperTest {
 	private final AccountMapper accountMapper = new AccountMapper();
 
 	@Test
-	void testMapToEntity() {
+	@Override
+	public void testMapToEntity() {
 		AccountDTO accountDTO = getAccountDTO();
 		AccountEntity mappedEntity = accountMapper.mapToEntity(accountDTO);
 		assertDTOMatchEntity(accountDTO, mappedEntity);
@@ -48,7 +50,8 @@ class AccountMapperTest {
 	}
 
 	@Test
-	void testMapToDTO() {
+	@Override
+	public void testMapToDTO() {
 		AccountEntity accountEntity = getAccountEntity();
 		AccountDTO mappedDTO = accountMapper.mapToDTO(accountEntity);
 		assertEntityMatchDTO(accountEntity, mappedDTO);

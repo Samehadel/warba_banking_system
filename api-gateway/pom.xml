@@ -9,18 +9,18 @@
 	</parent>
 
 	<groupId>com.bank</groupId>
-	<artifactId>eureka</artifactId>
+	<artifactId>api-gateway</artifactId>
 	<version>1.0.0</version>
-	<name>eureka-server</name>
-	<packaging>jar</packaging>
+	<name>api-gateway</name>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+			<artifactId>spring-cloud-starter-gateway</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 		</dependency>
 	</dependencies>
 

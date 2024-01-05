@@ -20,8 +20,6 @@ public class CustomerMapper implements GlobalMapper<CustomerEntity, CustomerDTO>
 		entity.setLastName(dto.getLastName());
 		entity.setEmail(dto.getEmail());
 		entity.setPhoneNumber(dto.getPhoneNumber());
-		entity.setActive(dto.getActive());
-		entity.setBlocked(dto.getBlocked());
 		AddressComponent addressComponent = addressMapper.mapToEntity(dto.getAddressDTO());
 		entity.setAddressComponent(addressComponent);
 		for (OfficialIdDTO officialIdDTO : dto.getOfficialIDs()) {
@@ -36,6 +34,7 @@ public class CustomerMapper implements GlobalMapper<CustomerEntity, CustomerDTO>
 	public CustomerDTO mapToDTO(CustomerEntity entity) {
 		AddressDTO addressDTO = addressMapper.mapToDTO(entity.getAddressComponent());
 		CustomerDTO dto = CustomerDTO.builder()
+				.customerCode(entity.getCustomerCode())
 				.firstName(entity.getFirstName())
 				.lastName(entity.getLastName())
 				.email(entity.getEmail())

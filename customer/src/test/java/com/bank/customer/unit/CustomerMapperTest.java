@@ -8,6 +8,7 @@ import com.bank.customer.entity.CustomerEntity;
 import com.bank.customer.entity.OfficialIdEntity;
 import com.bank.customer.enums.OfficialIdTypeEnum;
 import com.bank.customer.mapper.CustomerMapper;
+import com.bank.shared.mapper.MapperTest;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Date;
@@ -16,35 +17,31 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
-public class CustomerMapperTest {
+public class CustomerMapperTest implements MapperTest {
 	private final CustomerMapper customerMapper = new CustomerMapper();
 
 	@Test
-	public void testCustomerMapper() {
+	@Override
+	public void testMapToEntity() {
 		CustomerDTO customerDTO = getCustomerDTO();
-
 		OfficialIdDTO officialIdDTO = getOfficialIdDTO();
 		customerDTO.addOfficialId(officialIdDTO);
+		CustomerEntity mappedEntity = customerMapper.mapToEntity(customerDTO);
 
-
-		CustomerEntity customerEntity = customerMapper.mapToEntity(customerDTO);
-
-		assertCustomerDTOMatchEntity(customerDTO, customerEntity);
-
-		CustomerDTO mappedDTO = customerMapper.mapToDTO(customerEntity);
-
-		assertCustomerDTOMatchEntity(mappedDTO, customerEntity);
+		assertDTOMatchEntity(customerDTO, mappedEntity);
 	}
 
-	private void assertCustomerDTOMatchEntity(CustomerDTO customerDTO, CustomerEntity customerEntity) {
+	private void assertDTOMatchEntity(CustomerDTO customerDTO, CustomerEntity customerEntity) {
 		assertEquals(customerDTO.getFirstName(), customerEntity.getFirstName());
 		assertEquals(customerDTO.getLastName(), customerEntity.getLastName());
 		assertEquals(customerDTO.getEmail(), customerEntity.getEmail());
 		assertEquals(customerDTO.getPhoneNumber(), customerEntity.getPhoneNumber());
-		assertEquals(customerDTO.getActive(), customerEntity.getActive());
-		assertEquals(customerDTO.getBlocked(), customerEntity.getBlocked());
+		assertNull(customerEntity.getCustomerCode());
 		assertAddressDTOMatchEntity(customerDTO.getAddressDTO(), customerEntity.getAddressComponent());
+		assertNull(customerEntity.getActive());
+		assertNull(customerEntity.getBlocked());
 		assertOfficialIdDTOMatchEntity(customerDTO.getOfficialIDs(), customerEntity.getOfficialIDs());
 	}
 
@@ -88,6 +85,56 @@ public class CustomerMapperTest {
 				.active(true)
 				.blocked(false)
 				.addressDTO(AddressDTO.builder()
+						.street("Street")
+						.city("City")
+						.zipCode("12345")
+						.buildingNumber("123")
+						.country("Country")
+						.region("Region")
+						.build())
+				.build();
+	}
+
+	@Override
+	@Test
+	public void testMapToDTO() {
+		CustomerEntity customerEntity = getCustomerEntity();
+		OfficialIdEntity officialIdEntity = getOfficialIdEntity();
+		customerEntity.addOfficialId(officialIdEntity);
+		CustomerDTO mappedDTO = customerMapper.mapToDTO(customerEntity);
+
+		assertEntityMatchDTO(customerEntity, mappedDTO);
+	}
+
+	private OfficialIdEntity getOfficialIdEntity() {
+		OfficialIdEntity officialIdEntity = new OfficialIdEntity();
+		officialIdEntity.setType(OfficialIdTypeEnum.NATIONAL_ID);
+		officialIdEntity.setValue("Value");
+		officialIdEntity.setExpiryDate(new Date(12222000L));
+		return officialIdEntity;
+	}
+
+	private void assertEntityMatchDTO(CustomerEntity customerEntity, CustomerDTO mappedDTO) {
+		assertEquals(customerEntity.getCustomerCode(), mappedDTO.getCustomerCode());
+		assertEquals(customerEntity.getFirstName(), mappedDTO.getFirstName());
+		assertEquals(customerEntity.getLastName(), mappedDTO.getLastName());
+		assertEquals(customerEntity.getEmail(), mappedDTO.getEmail());
+		assertEquals(customerEntity.getPhoneNumber(), mappedDTO.getPhoneNumber());
+		assertNull(mappedDTO.getActive());
+		assertNull(mappedDTO.getBlocked());
+		assertAddressDTOMatchEntity(mappedDTO.getAddressDTO(), customerEntity.getAddressComponent());
+		assertOfficialIdDTOMatchEntity(mappedDTO.getOfficialIDs(), customerEntity.getOfficialIDs());
+	}
+
+
+	private CustomerEntity getCustomerEntity() {
+		return CustomerEntity.builder()
+				.customerCode("CUST_0211")
+				.firstName("John")
+				.lastName("Doe")
+				.email("john.doe@example.com")
+				.phoneNumber("123456789")
+				.addressComponent(AddressComponent.builder()
 						.street("Street")
 						.city("City")
 						.zipCode("12345")

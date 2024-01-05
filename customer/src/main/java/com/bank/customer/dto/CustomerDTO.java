@@ -11,6 +11,7 @@ import java.util.Set;
 @Builder
 public class CustomerDTO extends BaseDTO {
 
+	private String customerCode;
 	private String firstName;
 	private String lastName;
 	private String email;

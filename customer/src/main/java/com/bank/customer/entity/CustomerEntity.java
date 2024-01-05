@@ -2,12 +2,18 @@ package com.bank.customer.entity;
 
 import com.bank.shared.entity.ActiveEntity;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "CUSTOMER")
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class CustomerEntity extends ActiveEntity {
 
 	@Id
@@ -15,6 +21,9 @@ public class CustomerEntity extends ActiveEntity {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CUSTOMER_ID_SEQ")
 	@SequenceGenerator(name = "CUSTOMER_ID_SEQ", sequenceName = "CUSTOMER_ID_SEQ", allocationSize = 1)
 	private Long customerId;
+
+	@Column(name = "CUSTOMER_CODE", nullable = false, unique = true)
+	private String customerCode;
 
 	@Column(name = "FIRST_NAME")
 	private String firstName;
@@ -35,6 +44,13 @@ public class CustomerEntity extends ActiveEntity {
 	@JoinColumn(name = "CUSTOMER_ID")
 	private Set<OfficialIdEntity> officialIDs;
 
+	public String getCustomerCode() {
+		return customerCode;
+	}
+
+	public void setCustomerCode(String customerCode) {
+		this.customerCode = customerCode;
+	}
 
 	public String getFirstName() {
 		return firstName;
