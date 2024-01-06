@@ -1,6 +1,6 @@
 # Warba Banking System
 
-### Prerequisites
+### Technologies Used
 
 * Java V21
 * Spring Boot Dependencies V3.2.1
@@ -19,15 +19,15 @@ functionalities for account creation, retrieval, and status management.
 
 The running spring profile is dev. If used, ensure a PostgreSQL database is running with the following configurations:
 
-* URL: jdbc:postgresql://localhost:5432/warba_bank_customer_db
-* Username: postgres
-* Password: 12345678
+* **URL:** jdbc:postgresql://localhost:5432/warba_bank_customer_db
+* **Username:** postgres
+* **Password:** 12345678
 
 ### Service Configuration
 
-* Service Port: 9101
-* Application Name: account-service
-* Eureka Client Configuration: Registers with Eureka Server at http://localhost:8761/eureka
+* **Service Port:** 9101
+* **Application Name:** account-service
+* **Eureka Client Configuration:** Registers with Eureka Server at http://localhost:8761/eureka
 
 ### Features
 
@@ -56,13 +56,13 @@ The running spring profile is dev. If used, ensure a PostgreSQL database is runn
 * **Password**: 12345678
 
 ### Service Configuration 
-* Server Port:  9001 
-* Application Name: customer-service Eureka Client Configuration: Connects to Eureka Server at http://localhost:8761/eureka
+* **Server Port:**  9001 
+* **Application Name:** customer-service Eureka Client Configuration: Connects to Eureka Server at http://localhost:8761/eureka
  
 ### Features 
-* Create Customer: POST /customers/create - Creates a new customer. 
-* Get Customer: GET /customers/{customerCode} - Retrieves a customer based on their code. Block
-* Customer: POST /customers/block/{customerCode} - Blocks a customer account based on their code. Validation The service
+* **Create Customer:** POST /customers/create - Creates a new customer. 
+* **Get Customer:** GET /customers/{customerCode} - Retrieves a customer based on their code. Block
+* **Customer:** POST /customers/block/{customerCode} - Blocks a customer account based on their code. Validation The service
 performs thorough validation checks for customer data:
 
 
@@ -72,66 +72,66 @@ The Notification Service within the Warba Banking System handles notifications v
 ### Configuration
 Ensure a PostgreSQL database is running with the following configurations:
 
-* URL: jdbc:postgresql://localhost:5432/warba_bank_customer_db
-* Username: postgres
-* Password: 12345678
+* **URL:** jdbc:postgresql://localhost:5432/warba_bank_customer_db
+* **Username:** postgres
+* **Password:** 12345678
 
 
 ### Configure the Kafka server
-* Bootstrap Servers: localhost:9092
-* Consumer Group ID: notification
+* **Bootstrap Servers:** localhost:9092
+* **Consumer Group ID:** notification
 
 
 ### Service Configuration
-* Server Port: 9301
-* Application Name: notification-service
-* Eureka Client Configuration: Connects to Eureka Server at http://localhost:8761/eureka
+* **Server Port:** 9301
+* **Application Name:** notification-service
+* **Eureka Client Configuration:** Connects to Eureka Server at http://localhost:8761/eureka
 
 
 ### Kafka Configuration
 Listens to topics **sms-notification** and **mail-notification** for SMS and Email notifications respectively.
 
 ### Features
-* Sending SMS Notification: Listens to sms-notification Kafka topic.
-* Sending Email Notification: Listens to mail-notification Kafka topic.
-* Storing Notifications: Persists notification details in the PostgreSQL database.
+* **Sending SMS Notification:** Listens to sms-notification Kafka topic.
+* **Sending Email Notification:** Listens to mail-notification Kafka topic.
+* **Storing Notifications:** Persists notification details in the PostgreSQL database.
 
 
 ## **Eureka Server**
 The Eureka Server acts as a service registry in the Warba Banking System, enabling service discovery and registration.
 
 ### Configuration
-* Server Port: 8761
-* Application Name: eureka-server
+* **Server Port:** 8761
+* **Application Name:** eureka-server
 
 ### Features
-Service Discovery: Allows services to register themselves and discover other services.
+**Service Discovery:** Allows services to register themselves and discover other services.
 
 
 ## **API Gateway**
 The API Gateway in the Warba Banking System serves as an entry point, managing and routing incoming requests to the appropriate services.
 
 ### Configuration
-* Server Port: 9201
-* Application Name: api-gateway
+* **Server Port:** 9201
+* **Application Name:** api-gateway
 
 ### Routes Configuration
 The API Gateway manages routing for the following services:
 
 **Customer Service:**
 
-* Base URL: /customer-service/**
-* Service Name: CUSTOMER-SERVICE
-* Route Name: customer-service-route
+* **Base URL:** /customer-service/**
+* **Service Name:** CUSTOMER-SERVICE
+* **Route Name:** customer-service-route
 
 **Account Service:**
 
-* Base URL: /account-service/**
-* Service Name: ACCOUNT-SERVICE
-* Route Name: account-service-route
+* **Base URL:** /account-service/**
+* **Service Name:** ACCOUNT-SERVICE
+* **Route Name:** account-service-route
 
 ### Features
-Routing: Directs incoming requests to the corresponding microservices based on defined routes.
+**Routing:** Directs incoming requests to the corresponding microservices based on defined routes.
 
 
 
