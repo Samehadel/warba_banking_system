@@ -135,7 +135,7 @@ The API Gateway manages routing for the following services:
 
 
 
-##Missing Parts
+## Missing Parts
 1. **Spring Security Implementation**
  
 **Objective:** Secure endpoints and manage access to system resources.
@@ -151,3 +151,4 @@ The API Gateway manages routing for the following services:
 * **Entity Auditing:** Add auditing fields (e.g., lastModifiedBy, lastModifiedDate) to the existing entities (Account and Customer).
 * **Implement Listeners:** Use JPA entity listeners or Spring Data JPA's auditing features to automatically update these fields on entity modifications.
 * **Integration with Spring Data:** Utilize Spring Data's auditing capabilities for automatic population of auditing fields.
+3. **Implementing Mail and SMS service:** Add implementation for sending SMS and Email notifications to customers.
