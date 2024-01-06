@@ -14,6 +14,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import static com.bank.customer.constatnts.ErrorMessages.*;
 import static com.bank.customer.util.MockingUtil.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
@@ -47,32 +48,33 @@ public class CustomerServiceTest {
 	@Test
 	public void testCreateCustomer_InvalidCustomer_MissingRequiredFields() {
 		CustomerDTO customerDTO = createInValidCustomer_MissingFirstName();
-		callAndValidate(customerDTO);
+		callAndValidate(customerDTO, MISSING_FIRST_NAME);
 
 		customerDTO = createInValidCustomer_MissingLastName();
-		callAndValidate(customerDTO);
+		callAndValidate(customerDTO, MISSING_LAST_NAME);
 
 		customerDTO = createInValidCustomer_MissingEmailAndPhoneNumber();
-		callAndValidate(customerDTO);
+		callAndValidate(customerDTO, MISSING_PHONE_NUMBER_OR_EMAIL);
 
 		customerDTO = createInValidCustomer_MissingOfficialId();
-		callAndValidate(customerDTO);
+		callAndValidate(customerDTO, MISSING_OFFICIAL_IDS);
 
 		customerDTO = createInValidCustomer_MissingOfficialIdValue();
-		callAndValidate(customerDTO);
+		callAndValidate(customerDTO, MISSING_OFFICIAL_ID_VALUE);
 
 		customerDTO = createInValidCustomer_MissingOfficialIdType();
-		callAndValidate(customerDTO);
+		callAndValidate(customerDTO, MISSING_OFFICIAL_ID_TYPE);
 
 		customerDTO = createInValidCustomer_MissingOfficialIdExpiryDate();
-		callAndValidate(customerDTO);
+		callAndValidate(customerDTO, MISSING_OFFICIAL_ID_EXPIRY_DATE);
 	}
 
-	private void callAndValidate(CustomerDTO customerDTO) {
+	private void callAndValidate(CustomerDTO customerDTO, String expectedMessage) {
 		try {
 			customerService.create(customerDTO);
 			assertEquals(1, 2);
 		} catch (MissingRequiredFieldsException e) {
+			assertEquals(e.getMessage(), expectedMessage);
 			verify(customerRepository, times(0)).countByEmail(getAnyString());
 			verify(customerRepository, times(0)).countByEmail(getAnyString());
 			verify(customerRepository, times(0)).countByOfficialId(getAnyString(), getAnyOfficialIdType());
@@ -87,6 +89,7 @@ public class CustomerServiceTest {
 			customerService.create(customerDTO);
 			assertEquals(1, 2);
 		} catch (InvalidDataException e) {
+			assertEquals(e.getMessage(), INVALID_OFFICIAL_ID_EXPIRY_DATE);
 			verify(customerRepository, times(0)).countByEmail(getAnyString());
 			verify(customerRepository, times(0)).countByEmail(getAnyString());
 			verify(customerRepository, times(0)).countByOfficialId(getAnyString(), getAnyOfficialIdType());
@@ -105,6 +108,7 @@ public class CustomerServiceTest {
 			customerService.create(customerDTO);
 			assertEquals(1, 2);
 		} catch (DataUniquenessException e) {
+			assertEquals(e.getMessage(), PHONE_NUMBER_ALREADY_EXISTS);
 			verify(customerRepository, times(0)).save(getAnyCustomerEntity());
 		}
 	}
@@ -116,10 +120,12 @@ public class CustomerServiceTest {
 		mockCountByEmail(1L);
 		mockCountByPhoneNumber(0L);
 		mockCountByOfficialId(0L);
+
 		try {
 			customerService.create(customerDTO);
 			assertEquals(1, 2);
 		} catch (DataUniquenessException e) {
+			assertEquals(e.getMessage(), EMAIL_ALREADY_EXISTS);
 			verify(customerRepository, times(0)).save(getAnyCustomerEntity());
 		}
 	}
@@ -135,6 +141,7 @@ public class CustomerServiceTest {
 			customerService.create(customerDTO);
 			assertEquals(1, 2);
 		} catch (DataUniquenessException e) {
+			assertEquals(e.getMessage(), OFFICIAL_ID_ALREADY_EXISTS);
 			verify(customerRepository, times(0)).save(getAnyCustomerEntity());
 		}
 	}

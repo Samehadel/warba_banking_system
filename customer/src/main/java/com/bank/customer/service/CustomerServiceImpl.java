@@ -1,6 +1,7 @@
 package com.bank.customer.service;
 
 import com.bank.customer.CustomerRepository;
+import com.bank.customer.constatnts.ErrorMessages;
 import com.bank.shared.dto.CustomerDTO;
 import com.bank.shared.dto.OfficialIdDTO;
 import com.bank.customer.entity.CustomerEntity;
@@ -55,13 +56,13 @@ public class CustomerServiceImpl implements CustomerService {
 	private void validateCustomerRequiredInfo(CustomerDTO dto) {
 		log.info("Starting Validating customer required info {}", dto);
 		if (StringUtil.isNullOrEmpty(dto.getFirstName())) {
-			throw new MissingRequiredFieldsException("First name is required");
+			throw new MissingRequiredFieldsException(ErrorMessages.MISSING_FIRST_NAME);
 		}
 		if (StringUtil.isNullOrEmpty(dto.getLastName())) {
-			throw new MissingRequiredFieldsException("Last name is required");
+			throw new MissingRequiredFieldsException(ErrorMessages.MISSING_LAST_NAME);
 		}
 		if (StringUtil.isNullOrEmpty(dto.getPhoneNumber()) && StringUtil.isNullOrEmpty(dto.getEmail())) {
-			throw new MissingRequiredFieldsException("Phone number or email is required");
+			throw new MissingRequiredFieldsException(ErrorMessages.MISSING_PHONE_NUMBER_OR_EMAIL);
 		}
 		validateCustomerOfficialIDs(dto.getOfficialIDs());
 	}
@@ -69,21 +70,21 @@ public class CustomerServiceImpl implements CustomerService {
 	private void validateCustomerOfficialIDs(Set<OfficialIdDTO> officialIDs) {
 		log.info("Starting Validating customer official IDs");
 		if (CollectionUtil.isNullOrEmpty(officialIDs)) {
-			throw new MissingRequiredFieldsException("At least one official ID is required");
+			throw new MissingRequiredFieldsException(ErrorMessages.MISSING_OFFICIAL_IDS);
 		}
 		for (OfficialIdDTO officialIdDTO : officialIDs) {
 			if (StringUtil.isNullOrEmpty(officialIdDTO.getValue())) {
-				throw new MissingRequiredFieldsException("Official ID number is required");
+				throw new MissingRequiredFieldsException(ErrorMessages.MISSING_OFFICIAL_ID_VALUE);
 			}
 			if (null == officialIdDTO.getType()) {
-				throw new MissingRequiredFieldsException("Official ID type is required");
+				throw new MissingRequiredFieldsException(ErrorMessages.MISSING_OFFICIAL_ID_TYPE);
 			}
 			if (null == officialIdDTO.getExpiryDate()) {
-				throw new MissingRequiredFieldsException("Official ID expiry date is required");
+				throw new MissingRequiredFieldsException(ErrorMessages.MISSING_OFFICIAL_ID_EXPIRY_DATE);
 			}
 			Date today = new Date();
 			if (officialIdDTO.getExpiryDate().before(today)) {
-				throw new InvalidDataException("Official ID is expired");
+				throw new InvalidDataException(ErrorMessages.INVALID_OFFICIAL_ID_EXPIRY_DATE);
 			}
 		}
 	}
@@ -91,16 +92,16 @@ public class CustomerServiceImpl implements CustomerService {
 	private void validateInfoFormat(CustomerDTO dto) {
 		log.info("Starting Validating customer info format {}", dto);
 		if (!StringUtil.isNullOrEmpty(dto.getEmail()) && !RegexValidator.isValidEmail(dto.getEmail())) {
-			throw new InvalidDataException("Invalid email");
+			throw new InvalidDataException(ErrorMessages.INVALID_EMAIL);
 		}
 		if (!StringUtil.isNullOrEmpty(dto.getPhoneNumber()) && !RegexValidator.isValidPhoneNumber(dto.getPhoneNumber())) {
-			throw new InvalidDataException("Invalid phone number");
+			throw new InvalidDataException(ErrorMessages.INVALID_PHONE_NUMBER);
 		}
 		for (OfficialIdDTO officialIdDTO : dto.getOfficialIDs()) {
 			if (officialIdDTO.getType() == OfficialIdTypeEnum.NATIONAL_ID && !RegexValidator.isValidNationalId(officialIdDTO.getValue())) {
-				throw new InvalidDataException("Invalid national ID");
+				throw new InvalidDataException(ErrorMessages.INVALID_NATIONAL_ID);
 			} else if (officialIdDTO.getType() == OfficialIdTypeEnum.PASSPORT && !RegexValidator.isValidPassportNumber(officialIdDTO.getValue())) {
-				throw new InvalidDataException("Invalid passport number");
+				throw new InvalidDataException(ErrorMessages.INVALID_PASSPORT_NUMBER);
 			}
 		}
 	}
@@ -110,18 +111,18 @@ public class CustomerServiceImpl implements CustomerService {
 
 		long countByEmail = customerRepository.countByEmail(dto.getEmail());
 		if (countByEmail > 0) {
-			throw new DataUniquenessException("Email already exists");
+			throw new DataUniquenessException(ErrorMessages.EMAIL_ALREADY_EXISTS);
 		}
 
 		long countByPhoneNumber = customerRepository.countByPhoneNumber(dto.getPhoneNumber());
 		if (countByPhoneNumber > 0) {
-			throw new DataUniquenessException("Phone number already exists");
+			throw new DataUniquenessException(ErrorMessages.PHONE_NUMBER_ALREADY_EXISTS);
 		}
 
 		for (OfficialIdDTO officialIdDTO : dto.getOfficialIDs()) {
 			long countByOfficialId = customerRepository.countByOfficialId(officialIdDTO.getValue(), officialIdDTO.getType());
 			if (countByOfficialId > 0) {
-				throw new DataUniquenessException("Official ID with type [" + officialIdDTO.getType().name() + "] already exists");
+				throw new DataUniquenessException(ErrorMessages.OFFICIAL_ID_ALREADY_EXISTS);
 			}
 		}
 	}
