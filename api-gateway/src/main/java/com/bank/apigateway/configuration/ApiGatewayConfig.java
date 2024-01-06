@@ -29,12 +29,6 @@ public class ApiGatewayConfig {
 
 	@Bean
 	public RouteLocator gatewayRouter(RouteLocatorBuilder locatorBuilder) {
-		/*Function<PredicateSpec, Buildable<Route>> routeFunction
-				= p -> p.path(customerBaseUrl).uri("lb://" + customerServiceName);
-		return locatorBuilder
-				.routes()
-				.route(routeFunction)
-				.build();*/
 		return locatorBuilder.routes()
 				.route(customerServiceRouteName, r -> r.path(customerBaseUrl).uri("lb://" + customerServiceName))
 				.route(accountServiceRouteName, r -> r.path(accountBaseUrl).uri("lb://" + accountServiceName))

@@ -14,7 +14,6 @@
         <module>account</module>
         <module>shared</module>
         <module>eureka</module>
-        <module>security</module>
         <module>api-gateway</module>
         <module>notification</module>
     </modules>
