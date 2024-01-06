@@ -5,26 +5,25 @@ import com.bank.account.clients.CustomerServiceClient;
 import com.bank.account.configuration.AppConfig;
 import com.bank.account.entity.AccountEntity;
 import com.bank.account.mapper.AccountMapper;
+import com.bank.shared.constants.EventsConstants;
 import com.bank.shared.dto.AccountDTO;
 import com.bank.shared.dto.CustomerDTO;
+import com.bank.shared.dto.NotificationDTO;
 import com.bank.shared.dto.OfficialIdDTO;
 import com.bank.shared.enums.AccountStatusEnum;
-import com.bank.shared.enums.AccountTypeEnum;
+import com.bank.shared.enums.NotificationTypeEnum;
 import com.bank.shared.exceptions.IllegalOperationException;
 import com.bank.shared.exceptions.InvalidDataException;
 import com.bank.shared.exceptions.MissingRequiredFieldsException;
 import com.bank.shared.model.BankResponse;
-import com.bank.shared.model.StatusEnum;
 import com.bank.shared.util.BankResponseUtil;
 import com.bank.shared.util.CollectionUtil;
 import com.bank.shared.util.StringUtil;
-import com.google.common.io.CharSource;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
-import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -44,19 +43,54 @@ public class AccountServiceImpl implements AccountService {
 
 	@Autowired
 	private CustomerServiceClient customerServiceClient;
-
+	@Autowired
+	private KafkaTemplate<String, NotificationDTO> kafkaTemplate;
 
 	@Override
 	public BankResponse<AccountDTO> create(AccountDTO dto) {
 		try {
 			log.info("Starting create account for customer {}", dto.getCustomerCode());
 			validateAccountRequiredInfo(dto);
-			validateCustomer(dto.getCustomerCode());
+			CustomerDTO customerDTO = findCustomerByCode(dto.getCustomerCode());
+			validateCustomer(customerDTO);
 			validateCustomerAccounts(dto);
-			return createAccount(dto);
+			BankResponse<AccountDTO> response = createAccount(dto);
+			pushNotification(dto, customerDTO);
+			return response;
 		} finally {
 			log.info("Finished create account for customer {}", dto.getCustomerCode());
 		}
+	}
+
+	private void pushNotification(AccountDTO dto, CustomerDTO customerDTO) {
+		try {
+			log.info("Starting push notification for customer {}", dto.getCustomerCode());
+			if(!StringUtil.isNullOrEmpty(customerDTO.getEmail())) {
+				kafkaTemplate.send(EventsConstants.NOTIFICATION_MAIL_TOPIC, createEmailNotification(dto.getAccountNumber(), customerDTO));
+			} else if(!StringUtil.isNullOrEmpty(customerDTO.getPhoneNumber())) {
+				kafkaTemplate.send(EventsConstants.NOTIFICATION_SMS_TOPIC, createSMSNotification(dto.getAccountNumber(), customerDTO));
+			}
+		} catch (Exception e) {
+			log.error("Error while push notification for customer {}", dto.getCustomerCode(), e);
+		} finally {
+			log.info("Finished push notification for customer {}", dto.getCustomerCode());
+		}
+	}
+
+	private NotificationDTO createEmailNotification(String accountNumber, CustomerDTO customerDTO) {
+		return NotificationDTO.builder()
+				.message("Account created successfully with number " + accountNumber)
+				.receiverIdentifier(customerDTO.getEmail())
+				.type(NotificationTypeEnum.ACCOUNT_REGISTRATION)
+				.build();
+	}
+
+	private NotificationDTO createSMSNotification(String accountNumber, CustomerDTO customerDTO) {
+		return NotificationDTO.builder()
+				.message("Account created successfully with number " + accountNumber)
+				.receiverIdentifier(customerDTO.getPhoneNumber())
+				.type(NotificationTypeEnum.ACCOUNT_REGISTRATION)
+				.build();
 	}
 
 	private void validateAccountRequiredInfo(AccountDTO dto) {
@@ -69,18 +103,23 @@ public class AccountServiceImpl implements AccountService {
 		}
 	}
 
-	private void validateCustomer(String customerCode) {
-		log.info("Starting validate customer {}", customerCode);
-		BankResponse<CustomerDTO> response = customerServiceClient.get(customerCode);
-		if (null == response || null == response.getData()) {
-			throw new MissingRequiredFieldsException("Customer not found");
-		}
-		CustomerDTO customerDTO = response.getData();
+	private void validateCustomer(CustomerDTO customerDTO) {
+		log.info("Starting validate customer {}", customerDTO.getCustomerCode());
+
 		if(!Boolean.TRUE.equals(customerDTO.getActive()) ||
 				Boolean.TRUE.equals(customerDTO.getBlocked())) {
 			throw new IllegalOperationException("Customer is not active");
 		}
 		validateCustomerOfficialIDs(customerDTO.getOfficialIDs());
+	}
+
+	private CustomerDTO findCustomerByCode(String customerCode) {
+		BankResponse<CustomerDTO> response = customerServiceClient.get(customerCode);
+		if (null == response || null == response.getData()) {
+			throw new MissingRequiredFieldsException("Customer not found");
+		}
+		CustomerDTO customerDTO = response.getData();
+		return customerDTO;
 	}
 
 	private void validateCustomerAccounts(AccountDTO accountDTO) {

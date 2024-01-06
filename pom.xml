@@ -16,6 +16,7 @@
         <module>eureka</module>
         <module>security</module>
         <module>api-gateway</module>
+        <module>notification</module>
     </modules>
 
     <properties>
