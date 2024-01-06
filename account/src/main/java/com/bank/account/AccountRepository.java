@@ -24,4 +24,6 @@ public interface AccountRepository extends JpaRepository<AccountEntity, Long> {
 	long countByCustomerCodeAndAccountType(@Param("customerCode") String customerCode, @Param("accountType")AccountTypeEnum accountType, @Param("accountStatus") AccountStatusEnum accountStatus);
 
 	List<AccountEntity> findByCustomerCode(String code);
+
+	AccountEntity findByAccountNumber(String accountNumber);
 }

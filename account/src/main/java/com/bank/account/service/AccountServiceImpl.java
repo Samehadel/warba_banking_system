@@ -2,6 +2,7 @@ package com.bank.account.service;
 
 import com.bank.account.AccountRepository;
 import com.bank.account.clients.CustomerServiceClient;
+import com.bank.account.configuration.AppConfig;
 import com.bank.account.entity.AccountEntity;
 import com.bank.account.mapper.AccountMapper;
 import com.bank.shared.dto.AccountDTO;
@@ -35,8 +36,8 @@ public class AccountServiceImpl implements AccountService {
 
 	private final AccountMapper accountMapper = new AccountMapper();
 
-	@Value("${account.max.number.accounts}")
-	private long maxNumberAccounts;
+	@Autowired
+	private AppConfig appConfig;
 
 	@Autowired
 	private AccountRepository accountRepository;
@@ -86,7 +87,7 @@ public class AccountServiceImpl implements AccountService {
 		log.info("Starting validate customer accounts {}", accountDTO.getCustomerCode());
 		String customerCode = accountDTO.getCustomerCode();
 		long customerNumberOfAccount = accountRepository.countByCustomerCode(customerCode, AccountStatusEnum.getPendingList());
-		if (customerNumberOfAccount >= maxNumberAccounts) {
+		if (customerNumberOfAccount >= appConfig.getMaxNumberAccounts()) {
 			throw new IllegalOperationException("Customer reached the maximum number of accounts");
 		}
 		long customerExistingAccountWithSameType = accountRepository.countByCustomerCodeAndAccountType(customerCode, accountDTO.getAccountType(), AccountStatusEnum.PENDING_APPROVAL);
@@ -126,12 +127,13 @@ public class AccountServiceImpl implements AccountService {
 		return BankResponseUtil.getSuccessResponse(dto);
 	}
 
-
-
 	@Override
 	public BankResponse<AccountDTO> get(String code) {
 		try {
-			log.info("Starting get account {}", code);
+			log.info("Starting get accounts {}", code);
+			if(StringUtil.isNullOrEmpty(code)) {
+				throw new MissingRequiredFieldsException("Customer code is required");
+			}
 			List<AccountEntity> customerAccounts = accountRepository.findByCustomerCode(code);
 			List<AccountDTO> accountDTOS = getAccountDTOs(customerAccounts);
 			return BankResponseUtil.getSuccessResponse(accountDTOS);
@@ -149,7 +151,22 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public BankResponse<Void> block(String code) {
-		return null;
+	public BankResponse<Void> block(String accountNumber) {
+		try {
+			log.info("Starting block account for accountNumber {}", accountNumber);
+			if(StringUtil.isNullOrEmpty(accountNumber)) {
+				throw new MissingRequiredFieldsException("Customer accountNumber is required");
+			}
+
+			AccountEntity accountEntity = accountRepository.findByAccountNumber(accountNumber);
+
+			accountEntity.setBlocked(Boolean.TRUE);
+			accountEntity.setActive(Boolean.FALSE);
+
+			accountRepository.save(accountEntity);
+			return BankResponseUtil.getSuccessResponse();
+		} finally {
+			log.info("Finished block account for accountNumber {}", accountNumber);
+		}
 	}
 }
